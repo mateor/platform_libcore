@@ -4513,9 +4513,8 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_CTX_disable_npn, "(I)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_npn_negotiated_protocol, "(I)[B"),
 };
-
 void register_org_apache_harmony_xnet_provider_jsse_NativeCrypto(JNIEnv* env) {
     JNI_TRACE("register_org_apache_harmony_xnet_provider_jsse_NativeCrypto");
-    // Register org.apache.harmony.xnet.provider.jsse.NativeCrypto methods
-    jniRegisterNativeMethods(env, "org/apache/harmony/xnet/provider/jsse/NativeCrypto", sNativeCryptoMethods, NELEM(sNativeCryptoMethods));
+    jniRegisterNativeMethods(env, "org/apache/harmony/xnet/provider/jsse/NativeCrypto",
+                             sNativeCryptoMethods, NELEM(sNativeCryptoMethods));
 }
