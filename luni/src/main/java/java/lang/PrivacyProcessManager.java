@@ -45,7 +45,7 @@ public class PrivacyProcessManager {
 //            System.err.println("PrivacyProcessManager - hasPrivacyPermission: creating command line file FileReader for " + commandLineFile);
             freader = new PrivacyFileReader(commandLineFile);
             String proc = "";
-            for (int i = GET_COMMAND_WAIT_MS; (proc = freader.readLine()) == null && i >= 0; i-= GET_COMMAND_WAIT_STEP) {
+            for (int i = GET_COMMAND_WAIT_MS; (proc = freader.readLine()) == null && i >= 0; i=- GET_COMMAND_WAIT_STEP) {
                 try {
                     Thread.sleep(GET_COMMAND_WAIT_STEP);
                 } catch (InterruptedException e) {
@@ -78,45 +78,6 @@ public class PrivacyProcessManager {
         }
 //        System.err.println("PrivacyProcessManager - hasPrivacyPermission: returning: " + output);
         
-        return output;
-    }
-    
-    
-    
-    /**
-     * Verifies if the current process has privacy access permission
-     * to the specified setting. Use this method if you check before which commands will be executed. If you don't know
-     * use hasPrivacyPermission(String setting, int pid) it asked e.g. for 'logcat' command only at this time
-     * @param setting name of the setting file (e.g., ipTableSetting)
-     * @return boolean true if permission is granted or false otherwise
-     */
-    public static boolean hasPrivacyPermission(String setting) {
-        String packageName = null;
-        boolean output = true;
-        try {
-            packageName = getPackageName();
-            System.out.println("PrivacyProcessManager: got package name: " + packageName); //remove it after testing
-        } catch (Exception e) {
-            System.err.println("PrivacyProcessManager: could not find package name");
-            e.printStackTrace();
-        }
-        try {
-            PrivacyFileReader freader = null;
-            // get setting value
-            String settingsFilePath = "/data/system/privacy/" + packageName + "/" + setting;
-            freader = new PrivacyFileReader(settingsFilePath);
-            String line = freader.readLine();
-            int currentSetting = line != null ? Integer.parseInt(line.trim()) : -1;
-            freader.close();
-            // check permission
-            if (currentSetting == 1) output = false;
-            
-        } catch (FileNotFoundException e) {
-            // no setting for this application; do nothing
-        } catch (Exception e) {
-            System.err.println("PrivacyProcessManager: could not read privacy settings: " + setting);
-            e.printStackTrace();
-        }
         return output;
     }
     
