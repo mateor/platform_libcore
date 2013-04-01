@@ -45,7 +45,7 @@ public class PrivacyProcessManager {
 //            System.err.println("PrivacyProcessManager - hasPrivacyPermission: creating command line file FileReader for " + commandLineFile);
             freader = new PrivacyFileReader(commandLineFile);
             String proc = "";
-            for (int i = GET_COMMAND_WAIT_MS; (proc = freader.readLine()) == null && i >= 0; i=- GET_COMMAND_WAIT_STEP) {
+            for (int i = GET_COMMAND_WAIT_MS; (proc = freader.readLine()) == null && i >= 0; i -= GET_COMMAND_WAIT_STEP) {
                 try {
                     Thread.sleep(GET_COMMAND_WAIT_STEP);
                 } catch (InterruptedException e) {
